@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import Router from "./Router";
+import { GlobalStyle } from "./styles/Global.styled";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./styles/Theme";
+import { ThemeContext } from "./context/ThemeContext";
+import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
 
 function App() {
+  const { theme } = useContext(ThemeContext);
+
+  const mode = theme === "light" ? lightTheme : darkTheme;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={mode}>
+        <GlobalStyle />
+        <Router />
+        <MusicPlayer />
+      </ThemeProvider>
+    </>
   );
 }
 
